@@ -59,14 +59,14 @@ void fit_gaugino(TString grid = "C1N2", TString comp = "wino")
   bool saveROOTFile = true;
   bool doPrint      = true;
 
-  double x[57]    = {0.}; // Mass
-  double xe[57]   = {0.}; // Uncertainty of mass - set to zero since input
-  double y[57]    = {0.}; // Cross-section
-  double ye[57]   = {0.}; // Uncertainty of the cross-section
-  double yUp[57]  = {0.}; // Cross-section + 1sigma
-  double yeUp[57] = {0.}; // Pseudo-uncertainty on the cross-section + 1sigma
-  double yDn[57]  = {0.}; // Cross-section - 1sigma
-  double yeDn[57] = {0.}; // Pseudo-uncertainty on the cross-section - 1sigma
+  double x[77]    = {0.}; // Mass
+  double xe[77]   = {0.}; // Uncertainty of mass - set to zero since input
+  double y[77]    = {0.}; // Cross-section
+  double ye[77]   = {0.}; // Uncertainty of the cross-section
+  double yUp[77]  = {0.}; // Cross-section + 1sigma
+  double yeUp[77] = {0.}; // Pseudo-uncertainty on the cross-section + 1sigma
+  double yDn[77]  = {0.}; // Cross-section - 1sigma
+  double yeDn[77] = {0.}; // Pseudo-uncertainty on the cross-section - 1sigma
 
   if(!load_cross_sections(grid,comp,x,xe,y,ye)) {  // Read the tabulated cross-sections
     std::cout << "Couldn't find cross-sections for grid " << grid << " and composition " << comp << std::endl;
@@ -74,7 +74,7 @@ void fit_gaugino(TString grid = "C1N2", TString comp = "wino")
     return;
   } 
 
-  int nPoints = 57;
+  int nPoints = 77;
   if(grid.EqualTo("SlepSlep")) nPoints =  10;
   for(unsigned int i=0; i<nPoints; ++i) { 
     if(grid.EqualTo("SlepSlep")) ye[i] *= y[i]; // SlepSlep has fractional uncertainties...
@@ -95,14 +95,14 @@ void fit_gaugino(TString grid = "C1N2", TString comp = "wino")
   TCanvas* canvas = new TCanvas("canvas","canvas",800,800);
   canvas->SetBorderSize(0);
   canvas->SetFillColor(0);
-  TH1F* histoDummyTop = new TH1F("histoDummyTop","histoDummyTop",150,100,1500);
+  TH1F* histoDummyTop = new TH1F("histoDummyTop","histoDummyTop",200,100,2000);
   histoDummyTop->GetYaxis()->SetTitle("#sigma [fb]");
   histoDummyTop->GetYaxis()->SetLabelSize(0.04);
   histoDummyTop->GetXaxis()->SetLabelOffset(1.5);
   histoDummyTop->GetYaxis()->SetRangeUser(1.e-3,1.e5);
   TPad*    topPad = new TPad("pTop","pTop",0,0.2,1,1);
   topPad->Draw();
-  TH1F* histoDummyBot = new TH1F("histoDummyBot","histoDummyBot",150,100,1500);
+  TH1F* histoDummyBot = new TH1F("histoDummyBot","histoDummyBot",200,100,2000);
   histoDummyBot->GetXaxis()->SetTitle("m_{#tilde{#chi}_{1}^{#pm},#tilde{#chi}_{2}^{0}} [GeV]");
   histoDummyBot->GetXaxis()->SetTitleSize(0.15);
   histoDummyBot->GetXaxis()->SetTitleOffset(1.);
@@ -133,10 +133,10 @@ void fit_gaugino(TString grid = "C1N2", TString comp = "wino")
   legend->Draw();
 
   // Preform the fits and draw each
-  int    nFits =  9;
-  TF1* funcsNom[9]; TF1* funcsUp[9]; TF1* funcsDn[9];
-  int    fitColors[9] = {kBlue,kGreen,kOrange,kRed,kAzure-9,kYellow,kViolet,kTeal,kPink};
-  int  fitBorders[10] = {100,150,200,300,400,600,800,1000,1200,1500};
+  int    nFits =  10;
+  TF1* funcsNom[10]; TF1* funcsUp[10]; TF1* funcsDn[10];
+  int    fitColors[10] = {kBlue,kGreen,kOrange,kRed,kAzure-9,kYellow,kViolet,kTeal,kPink,kMagenta};
+  int  fitBorders[11] = {100,150,200,300,400,600,800,1000,1200,1500,2000};
   if(grid.EqualTo("SlepSlep")) for(unsigned int i=0; i<10; i++) { fitBorders[i] = 50.*(i+1); }
   TString funcName  = "";
   TString funcTitle = "";
@@ -179,11 +179,11 @@ void fit_gaugino(TString grid = "C1N2", TString comp = "wino")
   botPad->SetBottomMargin(0.4);
   histoDummyBot->Draw();
   // Calculate the yellow band in the ratio plot
-  double rx[140]  = {0.};
-  double rxe[140] = {0.};
-  double ry[140]  = {0.};
-  double rye[140] = {0.};
-  for(unsigned int i=0; i<140; ++i) {
+  double rx[190]  = {0.};
+  double rxe[190] = {0.};
+  double ry[190]  = {0.};
+  double rye[190] = {0.};
+  for(unsigned int i=0; i<190; ++i) {
     double mass = 100+i*10.;
     for(unsigned int j=0; j<nFits; ++j) {
       if(mass>=fitBorders[j]&&mass<fitBorders[j+1]) { 
@@ -194,11 +194,11 @@ void fit_gaugino(TString grid = "C1N2", TString comp = "wino")
       }
     }
     rx[i]  = mass;
-    rxe[i] = 10.; // 100 to 1500, 140 steps == 10 GeV
+    rxe[i] = 10.; // 100 to 2000, 190 steps == 10 GeV
     ry[i]  = 1.;
     //std::cout << rx[i] << " " << rxe[i] << " " << ry[i] << " " << rye[i] << std::endl;
   }
-  TGraphErrors* fitBand = new TGraphErrors(140,rx,ry,rxe,rye); 
+  TGraphErrors* fitBand = new TGraphErrors(190,rx,ry,rxe,rye); 
   fitBand->SetMarkerSize(0);
   fitBand->SetFillColor(kYellow);
   fitBand->Draw("same&&E2");
