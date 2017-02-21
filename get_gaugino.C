@@ -29,7 +29,7 @@ void get_gaugino( TString grid        = "C1N2",
   }
 
   // See if actual points exist
-  std::vector<double>* masses; std::vector<double>* xsecs; std::vector<double>* xsecUncs;
+  std::vector<double>* masses = 0; std::vector<double>* xsecs = 0; std::vector<double>* xsecUncs = 0;
   TTree* tree = (TTree*) input->Get("parameters");
   if(!tree) {
     std::cout << "Cannot find input tree, quitting..." << std::endl;

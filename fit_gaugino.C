@@ -287,7 +287,7 @@ void fit_gaugino(TString grid = "C1N2", TString comp = "wino")
     funcsDn[i]->Write();
   }
   TTree* tree = new TTree("parameters","TTree with masses [GeV] and cross-sections [fb]");
-  std::vector<double> xx, xxe, yy, yye;
+  std::vector<double> xx = 0, xxe = 0, yy = 0, yye = 0;
   tree->Branch("mass",&xx);
   tree->Branch("xsec",&yy);
   tree->Branch("xsecUnc",&yye);
