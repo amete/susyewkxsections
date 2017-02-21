@@ -22,4 +22,8 @@ root -l 'get_gaugino.C(grid,comp,mass)' where mass is the sparticle mass in GeV
 
 In case of any problems, please contact the ATLAS/CMS SUSY EWK conveners, happy hunting! :)
 
-In case ROOT6 doesn't work, please re-try w/ ROOT5.
+## References
+
+These cross-sections are tabulated at:
+
+[LHC SUSY Cross-sections Twiki (under Electroweak Sector)](https://twiki.cern.ch/twiki/bin/view/LHCPhysics/SUSYCrossSections#Cross_sections_for_various_S_AN2)
