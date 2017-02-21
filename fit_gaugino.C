@@ -287,13 +287,13 @@ void fit_gaugino(TString grid = "C1N2", TString comp = "wino")
     funcsDn[i]->Write();
   }
   TTree* tree = new TTree("parameters","TTree with masses [GeV] and cross-sections [fb]");
-  std::vector<double> *xx = 0, *xxe = 0, *yy = 0, *yye = 0;
+  std::vector<double> xx , xxe , yy , yye ;
   tree->Branch("mass",&xx);
   tree->Branch("xsec",&yy);
   tree->Branch("xsecUnc",&yye);
   for(unsigned int i=0; i<nPoints; ++i) {
-    xx->push_back(x[i]); xxe->push_back(xe[i]);
-    yy->push_back(y[i]); yye->push_back(ye[i]);
+    xx.push_back(x[i]); xxe.push_back(xe[i]);
+    yy.push_back(y[i]); yye.push_back(ye[i]);
   } 
   tree->Fill();
   output->Write(); 
