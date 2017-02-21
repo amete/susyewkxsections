@@ -133,10 +133,10 @@ void fit_gaugino(TString grid = "C1N2", TString comp = "wino")
   legend->Draw();
 
   // Preform the fits and draw each
-  int    nFits =  10;
-  TF1* funcsNom[10]; TF1* funcsUp[10]; TF1* funcsDn[10];
-  int    fitColors[10] = {kBlue,kGreen,kOrange,kRed,kAzure-9,kYellow,kViolet,kTeal,kPink,kMagenta};
-  int  fitBorders[11] = {100,150,200,300,400,600,800,1000,1200,1500,2000};
+  int    nFits =  11;
+  TF1* funcsNom[11]; TF1* funcsUp[11]; TF1* funcsDn[11];
+  int    fitColors[11] = {kBlue,kGreen,kOrange,kRed,kAzure-9,kYellow,kViolet,kTeal,kPink,kMagenta,kBlue+1};
+  int  fitBorders[12] = {100,150,200,300,400,600,800,1000,1200,1500,1750,2000};
   if(grid.EqualTo("SlepSlep")) for(unsigned int i=0; i<10; i++) { fitBorders[i] = 50.*(i+1); }
   TString funcName  = "";
   TString funcTitle = "";
